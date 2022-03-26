@@ -1,3 +1,5 @@
 from data_loader import *
 
-load_datas()
+if __name__ == '__main__':
+    trainset, testset = download_data()
+    
