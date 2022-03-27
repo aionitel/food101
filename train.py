@@ -13,7 +13,9 @@ def train_model(model=model, criterion=criterion, optimizer=optimizer, scheduler
         # Each epoch has a training and validation phase
         for phase in ['train', 'val']:
             if phase == 'train':
-                scheduler.step()
                 model.train()
             else:
                 model.eval()
+            
+            running_loss = 0.0
+            running_corrects = 0
