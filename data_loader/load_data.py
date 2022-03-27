@@ -5,7 +5,7 @@ import torchvision.transforms as transform
 # download base food image dataset
 def download_data():
     trainset = torchvision.datasets.Food101(root='./data', download=True, transform=transform)
-    testset = torchvision.datasets.Food101(root='./data', train=False, download=True, transform=transform)
+    testset = torchvision.datasets.Food101(root='./data', download=True, transform=transform)
 
     return trainset, testset
 
@@ -17,7 +17,7 @@ def load_data(trainset, testset):
         transform.RandomHorizontalFlip(),
         transform.RandomVerticalFlip(),
         transform.RandomResizedCrop(224),
-        transform.GaussianBlur(),
+        transform.GaussianBlur(kernel_size=3),
         transform.ToTensor(),
         transform.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
     ])

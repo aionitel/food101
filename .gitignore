@@ -308,3 +308,6 @@ pr.diff
 
 # coverage files
 */**/.coverage.*
+
+# data folder
+data

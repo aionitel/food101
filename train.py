@@ -1,11 +1,14 @@
 from model import *
 from data_loader import *
-import time
+import time, copy
 
 # main training function
 def train_model(model=model, criterion=criterion, optimizer=optimizer, scheduler=lr_scheduler, n_epochs=25):
     trainset, testset = download_data()
+    print('Downloaded data')
+
     trainloader, testloader = load_data(trainset, testset)
+    print('Loaded and prepared data for model use')
 
     since = time.time()
 
@@ -37,12 +40,31 @@ def train_model(model=model, criterion=criterion, optimizer=optimizer, scheduler
                     with torch.set_grad_enabled(phase == 'train'):
                         outputs = model(inputs)
                         _, preds = torch.max(outputs, 1)
+
                         loss = criterion(outputs, labels)
 
                         # backward pass
-                        if phase == 'train':
-                            loss.backward()
-                            optimizer.step()
+                        loss.backward()
+                        optimizer.step()
+
+                # statistics
+                running_loss += loss.item() * inputs.size(0)
+                running_corrects += torch.sum(preds == labels.data)
+            
+            if phase == 'train':
+                scheduler.step()
+
+            epoch_loss = running_loss / trainset.__len__()
+            epoch_acc = running_corrects.double() / trainset.__len__()
+
+            print(f'{phase} Loss: {epoch_loss:.4f} Acc: {epoch_acc:.4f}')
+
+            # deep copy the model
+            if phase == 'val' and epoch_acc > best_acc:
+                best_acc = epoch_acc
+                best_model_wts = copy.deepcopy(model.state_dict())
+
+        print()
         
 # root training activation func
 if __name__ == '__main__':
