@@ -1,11 +1,13 @@
 from model import *
 import time
 
+# main training function
 def train_model(model=model, criterion=criterion, optimizer=optimizer, scheduler=lr_scheduler, n_epochs=25):
     since = time.time()
 
     best_acc = 0.0
 
+    # main training loop
     for epoch in range(n_epochs):
         print('Epoch {}/{}'.format(epoch, n_epochs - 1))
         print('-' * 10)

@@ -2,12 +2,14 @@ import torch
 import torchvision
 import torchvision.transforms as transform
 
+# download base food image dataset
 def download_data():
     trainset = torchvision.datasets.Food101(root='./data', download=True, transform=transform)
     testset = torchvision.datasets.Food101(root='./data', train=False, download=True, transform=transform)
 
     return trainset, testset
 
+# load and transform dataset for model
 def load_data(trainset, testset):
     batch_size = 5
     
