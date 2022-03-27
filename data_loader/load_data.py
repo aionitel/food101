@@ -12,6 +12,10 @@ def load_data(trainset, testset):
     batch_size = 5
     
     transforms = transform.Compose([
+        transform.RandomHorizontalFlip(),
+        transform.RandomVerticalFlip(),
+        transform.RandomResizedCrop(224),
+        transform.GaussianBlur(),
         transform.ToTensor(),
         transform.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
     ])
