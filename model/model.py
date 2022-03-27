@@ -6,9 +6,9 @@ import torch.nn as nn
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-model = torchvision.models.MobileNetV2(pretrained=True)
+model = torchvision.models.mobilenet_v2(pretrained=True)
 
-features = model.fc.in_features
+features = model.features
 
 model = model.to(device)
 
