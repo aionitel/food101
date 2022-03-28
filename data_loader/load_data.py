@@ -26,6 +26,4 @@ def load_data(trainset, testset):
 
     testloader = torch.utils.data.DataLoader(testset, batch_size=batch_size, shuffle=False, num_workers=2)
 
-    classes = trainset['train'].classes
-
-    return trainloader, testloader
+    return trainloader, testloader 
