@@ -25,6 +25,8 @@ model.fc = nn.Linear(num_ftrs, 101) # add final linear layer for 101 classes
 # loss function
 criterion = nn.CrossEntropyLoss()
 
+# optimizer
 optimizer = optim.SGD(model.fc.parameters(), lr=0.001, momentum=0.9)
 
+# learning rate scheduler
 lr_rate = lr_scheduler.StepLR(optimizer, step_size=7, gamma=0.1)

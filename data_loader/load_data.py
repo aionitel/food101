@@ -4,15 +4,9 @@ import torchvision.transforms as transform
 
 # download base food image dataset
 def download_data():
-    trainset = torchvision.datasets.Food101(root='./data', download=True, transform=transform)
-    testset = torchvision.datasets.Food101(root='./data', download=True, transform=transform)
+    trainset = torchvision.datasets.Food101(root='./data', download=True)
+    testset = torchvision.datasets.Food101(root='./data', download=True)
 
-    return trainset, testset
-
-# load and transform dataset for model
-def load_data(trainset, testset):
-    batch_size = 5
-    
     transforms = transform.Compose([
         transform.RandomHorizontalFlip(),
         transform.RandomVerticalFlip(),
@@ -22,8 +16,17 @@ def load_data(trainset, testset):
         transform.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
     ])
 
-    trainloader = torch.utils.data.DataLoader(trainset, batch_size=batch_size, shuffle=True, num_workers=2)
+    train_data = torchvision.datasets.ImageFolder('./data/food-101/images', transform=transforms)
+    test_data = torchvision.datasets.ImageFolder('./data/food-101/images', transform=transforms)
 
-    testloader = torch.utils.data.DataLoader(testset, batch_size=batch_size, shuffle=False, num_workers=2)
+    return train_data, test_data
+
+# load and transform dataset for model
+def load_data(train_data, test_data):
+    batch_size = 5
+    
+    trainloader = torch.utils.data.DataLoader(train_data, batch_size=batch_size, shuffle=True, num_workers=2)
+
+    testloader = torch.utils.data.DataLoader(test_data, batch_size=batch_size, shuffle=False, num_workers=2)
 
     return trainloader, testloader 
