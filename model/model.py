@@ -30,3 +30,6 @@ optimizer = optim.SGD(model.fc.parameters(), lr=0.001, momentum=0.9)
 
 # learning rate scheduler
 lr_rate = lr_scheduler.StepLR(optimizer, step_size=7, gamma=0.1)
+
+# model summary
+summary(model, (3, 299, 299))
