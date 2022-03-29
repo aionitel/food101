@@ -13,8 +13,6 @@ model = torchvision.models.inception_v3(pretrained=True)
 
 num_ftrs = model.fc.in_features
 
-print(num_ftrs)
-
 # freeze all layers
 for param in model.parameters():
     param.requires_grad = False
@@ -32,4 +30,4 @@ optimizer = optim.SGD(model.fc.parameters(), lr=0.001, momentum=0.9)
 lr_rate = lr_scheduler.StepLR(optimizer, step_size=7, gamma=0.1)
 
 # model summary
-summary(model, (3, 299, 299))
+# summary(model, (3, 299, 299))

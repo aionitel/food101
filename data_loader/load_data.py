@@ -8,12 +8,12 @@ def download_data():
     testset = torchvision.datasets.Food101(root='./data', download=True)
 
     transforms = transform.Compose([
+        transform.Resize(299),
+        transform.RandomResizedCrop(299),
         transform.RandomHorizontalFlip(),
         transform.RandomVerticalFlip(),
-        transform.RandomResizedCrop(224),
-        transform.GaussianBlur(kernel_size=3),
         transform.ToTensor(),
-        transform.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+        transform.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
     ])
 
     train_data = torchvision.datasets.ImageFolder('./data/food-101/images', transform=transforms)

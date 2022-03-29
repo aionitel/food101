@@ -20,7 +20,7 @@ def train_model(model=model, criterion=criterion, optimizer=optimizer, scheduler
     running_loss = 0.0
 
     for epoch in range(n_epochs): # main training loop for n_epochs
-        print('Epoch {}/{}'.format(epoch, n_epochs - 1))
+        print(f'Epoch {epoch}/{n_epochs}')
         print('-' * 10)
 
         for inputs, labels in trainloader:
@@ -28,17 +28,22 @@ def train_model(model=model, criterion=criterion, optimizer=optimizer, scheduler
             inputs.to(device)
             labels.to(device)
 
-            # forward pass
-            with torch.set_grad_enabled():
-                outputs = model(inputs)
-                _, preds = torch.max(outputs, 1)
-                loss = criterion(outputs, labels)
+            # zero gradients
+            optimizer.zero_grad()
 
-                # backward pass
-                optimizer.zero_grad()
-                loss.backward()
-                optimizer.step()
+            #forward pass
+            outputs = model(inputs)
+            loss = criterion(outputs, labels)
+            loss.backward()
+            optimizer.step()
 
+            # print statistics
+            running_loss += loss.item()
+            if epoch % 10 == 9:
+                print(f'[{epoch + 1}, {i + 1:5d}] loss: {running_loss / 2000:.3f}')
+                running_loss = 0.0
+
+    print('Finished Training')
                 
 # train model
 if __name__ == '__main__':
