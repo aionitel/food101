@@ -9,7 +9,7 @@ from torchsummary import summary
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 # base densenet model
-model = torchvision.models.inception_v3(pretrained=True)
+model = torchvision.models.resnet18(pretrained=True)
 
 num_ftrs = model.fc.in_features
 

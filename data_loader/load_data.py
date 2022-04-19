@@ -23,7 +23,7 @@ def download_data():
 
 # load and transform dataset for model
 def load_data(train_data, test_data):
-    batch_size = 5
+    batch_size = 1
     
     trainloader = torch.utils.data.DataLoader(train_data, batch_size=batch_size, shuffle=True, num_workers=2)
 

@@ -2,9 +2,10 @@ import enum
 from model import *
 from data_loader import *
 import time, copy
+from torchvision.transforms import ToTensor
 
 # main training function
-def train_model(model=model, criterion=criterion, optimizer=optimizer, scheduler=lr_rate, n_epochs=25):
+def train_model(model=model, criterion=criterion, optimizer=optimizer, scheduler=lr_rate, n_epochs=1):
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
     since = time.time() # start timer
